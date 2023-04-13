@@ -151,7 +151,7 @@ class FetchJeepTest {
 	   scripts = {"classpath:flyway/migrations/V1.0__Jeep_Schema.sql",
 	              "classpath:flyway/migrations/V1.1__Jeep_Data.sql"},
 	   config = @SqlConfig(encoding = "utf-8"))
-	class TestsThatPolluteTheApplicaationContext extends FetchTestJeepSupport {
+	class TestsThatPolluteTheApplicationContext extends FetchTestJeepSupport {
 		// create the mock bean
 		@MockBean
 //		private JeepSalesService jeeepSalesService;

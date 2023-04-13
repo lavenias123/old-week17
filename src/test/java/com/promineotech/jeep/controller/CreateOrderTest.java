@@ -1,7 +1,7 @@
 package com.promineotech.jeep.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-
+import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
 import com.promineotech.jeep.controller.support.CreateOrderTestSupport;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -41,7 +41,7 @@ class CreateOrderTest extends CreateOrderTestSupport {
 		
 		HttpEntity<String> bodyEntity = new HttpEntity<>(body, headers);
 		// When: the order is sent 
-		ResponseEntity<?> response = getRestTemplate().exchange(uri, HttpMethod.POST, bodyEntity, Object.class); 
+		ResponseEntity<Order> response = getRestTemplate().exchange(uri, HttpMethod.POST, bodyEntity, Order.class); 
 		
 		//Then:: a 201 status is returned 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);

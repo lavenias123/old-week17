@@ -28,9 +28,9 @@ import io.swagger.v3.oas.annotations.servers.Server;
 public interface JeepOrderController {
 	// @formatter:off
 	@Operation (
-			summary = "Create an order for a Jeep",
+			summary = "Create an order for a Jeep", 
 			description = "Returns the created Jeep",
-			responses = { 
+			responses = { // the outcomes we want
 					@ApiResponse(
 						responseCode = "201", 
 						description = "The created Jeep is returned.", 
@@ -41,11 +41,11 @@ public interface JeepOrderController {
 						content = @Content(mediaType = "application/json")),
 					@ApiResponse(
 						responseCode = "404", 
-						description = "A Jeep component wasn't found with the input crteria.", 
+						description = "A Jeep component wasn't found with the input criteria.", 
 						content = @Content(mediaType = "application/json")),
 					@ApiResponse(
 						responseCode = "500", 
-						description = "An unplanned erro occurred.", 
+						description = "An unplanned error occurred.", 
 						content = @Content(mediaType = "application/json"))
 			}, // closes responses
 
@@ -53,7 +53,7 @@ public interface JeepOrderController {
 					@Parameter(name = "OrderRequest",
 							required = true,
 							description = "The order as JSON")
-			}) // closes parameters
+			}) // closes parameter
 	// @formatter:on
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)	
