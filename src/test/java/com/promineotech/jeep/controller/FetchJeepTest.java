@@ -45,12 +45,12 @@ class FetchJeepTest {
 	              "classpath:flyway/migrations/V1.1__Jeep_Data.sql"},
 	   config = @SqlConfig(encoding = "utf-8"))
 	
-	class TestsThatDoNotPolluteTheApplicaationContext extends FetchTestJeepSupport {
+	class TestsThatDoNotPolluteTheApplicationContext extends FetchTestJeepSupport {
 		
 		@Test
 
 //		TestRestTemplate 
-		void testThatAnErrorMessageIsReturnedWhennAUnknownTrimIsSupplied() {
+		void testThatAnErrorMessageIsReturnedWhenAUnknownTrimIsSupplied() {
 //			Given: a valid model, trim, & Uri
 			JeepModel model = JeepModel.WRANGLER;
 			String trim = "Unknown Value";
@@ -73,13 +73,13 @@ class FetchJeepTest {
 			assertErrorMessageValid(error, HttpStatus.NOT_FOUND);
 			
 //			@formatter:on
-		}  // close testThatAnErrorMessageIsReturnedWhennAUnknownTrimIsSupplied
+		}  // close testThatAnErrorMessageIsReturnedWhenAUnknownTrimIsSupplied
 		
 		
 		@ParameterizedTest
 		@MethodSource("com.promineotech.jeep.controller.FetchJeepTest#parametersForInvalidInput")
 //		TestRestTemplate 
-		void testThatAnErrorMessageIsReturnedWhennAInValidValueIsSupplied(String model, String trim, String reason) {
+		void testThatAnErrorMessageIsReturnedWhenAInValidValueIsSupplied(String model, String trim, String reason) {
 //			GIVEN: A VALID MODEL, TRIM AND, URI
 			
 			String uri = 
@@ -130,7 +130,7 @@ class FetchJeepTest {
 			
 			
 		}  // close testThatJeepsAreReturnedWhenAValidModelAndTrimAreSupplied 
-	} // close 1st inner class ---  TestsThatDoNotPolluteTheApplicaationContext
+	} // close 1st inner class ---  TestsThatDoNotPolluteTheApplicationContext
 	
 	static Stream<Arguments> parametersForInvalidInput() {
 		//Formatter:off

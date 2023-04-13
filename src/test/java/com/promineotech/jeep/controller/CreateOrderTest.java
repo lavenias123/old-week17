@@ -1,5 +1,12 @@
 package com.promineotech.jeep.controller;
 
+// check against Jolene's list
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.jdbc.JdbcTestUtils;
+import com.promineotech.jeep.entity.JeepModel;
+
+//
 import static org.assertj.core.api.Assertions.assertThat;
 //import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -14,8 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
+//import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
 import com.promineotech.jeep.controller.support.CreateOrderTestSupport;
+import com.promineotech.jeep.entity.Order;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
