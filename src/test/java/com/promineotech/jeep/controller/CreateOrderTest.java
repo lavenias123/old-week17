@@ -41,6 +41,7 @@ class CreateOrderTest extends CreateOrderTestSupport {
 		//Given: an order as JSON 
 		String body =  createOrderBody();
 		String uri = getBaseUriForOrders();
+		System.out.println(body);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -54,7 +55,17 @@ class CreateOrderTest extends CreateOrderTestSupport {
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 		
 		//And: the return order is correct
+		assertThat(response.getBody()).isNotNull();
 		
+		Order order = response.getBody();
+		
+		assertThat(order.getCustomer().getCustomerId()).isEqualTo("MORISON_LINA");
+		assertThat(order.getModel().getModelId()).isEqualTo(JeepModel.WRANGLER);
+		assertThat(order.getModel().getTrimLevel()).isEqualTo("Sport Altitude");
+		assertThat(order.getModel().getNumDoors()).isEqualTo(4);
+		assertThat(order.getColor().getColorId()).isEqualTo("2_0_TURBO");
+		assertThat(order.getEngine().getEngineId()).isEqualTo("35_TOYO");
+		assertThat(order.getOptions()).hasSize(6);
 	}
 
 
