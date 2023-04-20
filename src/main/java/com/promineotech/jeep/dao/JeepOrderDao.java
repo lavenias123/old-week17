@@ -2,8 +2,10 @@ package com.promineotech.jeep.dao;
 
 import com.promineotech.jeep.entity.Order;
 import com.promineotech.jeep.entity.OrderRequest;
+//import com.promineotech.jeep.service.Customer;
 
 public interface JeepOrderDao {
-	public Order createOrder(OrderRequest orderRequest); 
+
+	Customer fetchCustomer(String customer);
 
 }
