@@ -12,15 +12,26 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.promineotech.jeep.entity.Customer;
+import com.promineotech.jeep.entity.Order;
+import com.promineotech.jeep.entity.OrderRequest;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Component
-@Slf4j
 public class DefaultJeepOrderDao implements JeepOrderDao {
-
+// Error: So I selected from choice of corrections to: 
+// which I believe was added on lines 70 - 74 unimplemented method for DefaultJeepOrderDao
+	
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	// this in JODao.java
+	
+	/**
+	 * 
+	 */
+	@Override 
+	// causes error 
 	public Customer fetchCustomer(String customerId) {
 		
 		String sql= ""
@@ -31,22 +42,37 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 		Map<String, Object> params = new HashMap<>();
 		params.put("customer_id", customerId);
 		
+		// Error: Cannot return a void result
 		return jdbcTemplate.query(sql, params, new CustomerResultSetExtractor());
 	}
-	
-	private RowCallbackHandler CustomerResultSetExtractor() {
+
+	@Override
+	public Order createOrder(OrderRequest orderRequest) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
-	class CustomerRestultSetExtractor implements ResultSetExtractor<Customer> {
+	class CustomerResultSetExtractor implements ResultSetExtractor<Customer> {
 //		new ResultSetExtractor<Customer>() {
 
 			@Override
 			public Customer extractData(ResultSet rs) 
 				throws SQLException, DataAccessException {
-				return null;
+			rs.next();
+				
+			//formatter:off
+			return Customer.builder()
+					.customerId(rs.getString("customer_id"))
+					.customerPK(rs.getLong("customer_pk"))
+					.firstName(rs.getString("first_name"))
+					.lastName(rs.getString("last_name"))
+					.phone(rs.getString("phone"))
+					.build();	
+			//formatter:on
 			}
 	}
+
+	
 }
 

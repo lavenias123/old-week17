@@ -25,8 +25,7 @@ public class BasicJeepOrderController implements JeepOrderController {
 	@Override
 	public Order createOrder(OrderRequest orderRequest) {
 		log.debug("Order{}", orderRequest);
-//		log.debug("model{}, trim={}", model, trim);
-//		return jeepOrderService.createOrder(orderRequest);
+
 		return jeepOrderService.createOrder(orderRequest);
 	}
 

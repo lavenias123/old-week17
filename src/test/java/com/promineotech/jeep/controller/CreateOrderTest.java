@@ -41,7 +41,6 @@ class CreateOrderTest extends CreateOrderTestSupport {
 		//Given: an order as JSON 
 		String body =  createOrderBody();
 		String uri = getBaseUriForOrders();
-		System.out.println(body);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -67,6 +66,4 @@ class CreateOrderTest extends CreateOrderTestSupport {
 		assertThat(order.getEngine().getEngineId()).isEqualTo("35_TOYO");
 		assertThat(order.getOptions()).hasSize(6);
 	}
-
-
 }

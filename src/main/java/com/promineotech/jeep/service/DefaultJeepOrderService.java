@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.promineotech.jeep.dao.Customer;
-
 // import from which pkg 
 import com.promineotech.jeep.dao.JeepOrderDao;
 //import com.promineotech.jeep.entity.Customer;
-
+import com.promineotech.jeep.entity.Customer;
 import com.promineotech.jeep.entity.Order;
 import com.promineotech.jeep.entity.OrderRequest;
 
@@ -28,7 +26,8 @@ public class DefaultJeepOrderService implements JeepOrderService {
 		// fetch all records
 		Customer customer = jeepOrderDao.fetchCustomer(orderRequest.getCustomer());
 		
-		return jeepOrderDao.createOrder(orderRequest);
+		return null;
+//		return jeepOrderDao.createOrder(orderRequest);
 	}
 
 }
