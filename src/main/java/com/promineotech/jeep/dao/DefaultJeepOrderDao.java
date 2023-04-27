@@ -12,12 +12,17 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.promineotech.jeep.entity.Color;
 import com.promineotech.jeep.entity.Customer;
+import com.promineotech.jeep.entity.Engine;
+import com.promineotech.jeep.entity.Jeep;
+import com.promineotech.jeep.entity.JeepModel;
 import com.promineotech.jeep.entity.Order;
 import com.promineotech.jeep.entity.OrderRequest;
+import com.promineotech.jeep.entity.Tire;
 
 import lombok.extern.slf4j.Slf4j;
-
+ 
 @Component
 public class DefaultJeepOrderDao implements JeepOrderDao {
 // Error: So I selected from choice of corrections to: 
@@ -72,6 +77,33 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 			//formatter:on
 			}
 	}
+
+
+	@Override
+	public Jeep fetchModel(JeepModel model, String trim, int doors) {
+		return null;
+	}
+
+	@Override
+	public Color fetchColor(String color) {
+		return null;
+	}
+
+	@Override
+	public Engine fetchEngine(String engine) {
+		return null;
+	}
+
+	@Override
+	public Tire fetchTire(String tire) {
+		return null;
+	}
+
+//	@Override
+//	public Jeep fetchModel(String model) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	
 }
