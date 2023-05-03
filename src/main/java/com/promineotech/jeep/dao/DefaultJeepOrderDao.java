@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -36,8 +37,7 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 	 * 
 	 */
 	@Override 
-	// causes error 
-	public Customer fetchCustomer(String customerId) {
+	public Optional<Customer> fetchCustomer(String customerId) {
 		
 		String sql= ""
 				+ "SELECT * "
@@ -47,17 +47,25 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 		Map<String, Object> params = new HashMap<>();
 		params.put("customer_id", customerId);
 		
-		// Error: Cannot return a void result
-		return jdbcTemplate.query(sql, params, new CustomerResultSetExtractor());
+		return Optional.ofNullable(
+				jdbcTemplate.query(sql, params, new CustomerResultSetExtractor()));
 	}
 
-	@Override
-	public Order createOrder(OrderRequest orderRequest) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-
+//	@Override
+//	public Optional<Order> createOrder(OrderRequest orderRequest) {
+//		String sql= ""
+//				+ "SELECT * "
+//				+ "FROM orders "
+//				+ "WHERE order_id = :order_id";
+//		
+//		Map<String, Object> params = new HashMap<>();
+//		params.put("order_id", orderId);
+//		
+////		return Optional.ofNullable(
+////				jdbcTemplate.query(sql, params, new OrderResultSetExtractor()));
+//	}
+//	
+// inner class
 	class CustomerResultSetExtractor implements ResultSetExtractor<Customer> {
 //		new ResultSetExtractor<Customer>() {
 
@@ -80,31 +88,100 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 
 
 	@Override
-	public Jeep fetchModel(JeepModel model, String trim, int doors) {
-		return null;
+	public Optional<Jeep> fetchModel(JeepModel model, String trim, int doors) {
+		// @formatter:off
+		String sql= ""
+				+ "SELECT * "
+				+ "FROM models "
+				+ "WHERE model_id = :model_id "
+				+ "AND trim_level = :trim_level " 
+				+ "AND num_doors = :num_doors";
+		// @formatter:on		
+		Map<String, Object> params = new HashMap<>();
+		params.put("model_id", model.toString());
+		params.put("trim_level", trim);
+		params.put("num_doors", doors);
+		
+		return Optional.ofNullable(
+				jdbcTemplate.query(sql, params, new ModelResultSetExtractor()));
+		
 	}
-
-	@Override
-	public Color fetchColor(String color) {
-		return null;
-	}
-
-	@Override
-	public Engine fetchEngine(String engine) {
-		return null;
-	}
-
-	@Override
-	public Tire fetchTire(String tire) {
-		return null;
-	}
-
-//	@Override
-//	public Jeep fetchModel(String model) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	
+	@Override
+	public Optional<Color> fetchColor(String colorId) {
+		// @formatter:off
+		String sql= ""
+				+ "SELECT * "
+				+ "FROM colors "
+				+ "WHERE color_id = :color_id";
+		// @formatter:on
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("color_id", colorId);
+		
+		return Optional.ofNullable(
+				jdbcTemplate.query(sql, params, new ColorResultSetExtractor()));
+	}
+
+	@Override
+	public Optional<Engine> fetchEngine(String engineId) {
+		// @formatter:off
+		String sql= ""
+				+ "SELECT * "
+				+ "FROM engines "
+				+ "WHERE engine_id = :engine_id";
+				
+		Map<String, Object> params = new HashMap<>();
+		params.put("engine_id", engineId);
+		
+		// Error: Cannot return a void result
+		return Optional.ofNullable(
+				jdbcTemplate.query(sql, params, new EngineResultSetExtractor()));
+		// @formatter:on
+		
+	}
+
+	@Override
+	public Optional<Tire> fetchTire(String tireId) {
+		
+		// @formatter:off
+		String sql= ""
+				+ "SELECT * "
+				+ "FROM tires "
+				+ "WHERE tire_id = :tire_id";
+				
+		Map<String, Object> params = new HashMap<>();
+		params.put("tire_id", tireId);
+		
+		return Optional.ofNullable(
+				jdbcTemplate.query(sql, params, new TireResultSetExtractor()));
+		// @formatter:on
+		
+	}
+	
+	
+//	@Override
+//	public Tire extractData(ResultSet rs) 
+//		throws SQLException, DataAccessException {
+//	rs.next();
+//	//formatter:off
+//	return Tire.builder()
+//			.tireId(rs.getString("tire_id"))
+//			.tirePK(rs.getLong("tire_pk"))
+//			.tireSize(rs.getString("tire_size"))
+//			.manufacturer(rs.getString("manufacturer"))
+//			.price(rs.getBigDecimal("price"))
+//			.warrantyMiles(rs.getInt("warranty_miles"))
+//			.build();	
+	//formatter:on
 }
+	/*  tire_pk int unsigned NOT NULL AUTO_INCREMENT,
+   tire_id varchar(30) NOT NULL, 
+   tire_size varchar(128) NOT NULL,
+   manufacturer varchar(70) NOT NULL,
+   price decimal(7, 2) NOT NULL,
+   warranty_miles int NOT NULL,
+   */
+
 
