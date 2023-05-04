@@ -11,7 +11,7 @@ import com.promineotech.jeep.entity.Jeep;
 import com.promineotech.jeep.entity.JeepModel;
 import com.promineotech.jeep.entity.Order;
 
-//public class OrderResultSetExtractor implements ResultSetExtractor<Order>  {
+public class OrderResultSetExtractor implements ResultSetExtractor<Order>  {
 //	public Order extractData(ResultSet rs) 
 //			throws SQLException, DataAccessException {
 //		rs.next();
@@ -27,8 +27,8 @@ import com.promineotech.jeep.entity.Order;
 //				.build();	
 //		//formatter:on
 //	}
-//
-//}
+
+}
 /*
  * order_pk int unsigned NOT NULL AUTO_INCREMENT,
    customer_fk int unsigned NOT NULL,

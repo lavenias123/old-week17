@@ -1,5 +1,6 @@
 package com.promineotech.jeep.dao;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -33,6 +34,10 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	// this in JODao.java
 	
+	@Override
+	public Order saveOrder(Customer customer, Jeep jeep, Color color, Engine engine, Tire tire, BigDecimal price) {
+		return null;
+	}
 	/**
 	 * 
 	 */
@@ -51,19 +56,19 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 				jdbcTemplate.query(sql, params, new CustomerResultSetExtractor()));
 	}
 
-//	@Override
-//	public Optional<Order> createOrder(OrderRequest orderRequest) {
-//		String sql= ""
-//				+ "SELECT * "
-//				+ "FROM orders "
-//				+ "WHERE order_id = :order_id";
-//		
-//		Map<String, Object> params = new HashMap<>();
-//		params.put("order_id", orderId);
-//		
-////		return Optional.ofNullable(
-////				jdbcTemplate.query(sql, params, new OrderResultSetExtractor()));
-//	}
+	@Override
+	public Optional<Order> createOrder(OrderRequest orderRequest) {
+		String sql= ""
+				+ "SELECT * "
+				+ "FROM orders "
+				+ "WHERE order_id = :order_id";
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("order_id", orderId);
+		
+//		return Optional.ofNullable(
+//				jdbcTemplate.query(sql, params, new OrderResultSetExtractor()));
+	}
 //	
 // inner class
 	class CustomerResultSetExtractor implements ResultSetExtractor<Customer> {
@@ -159,6 +164,8 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 		// @formatter:on
 		
 	}
+
+	
 	
 	
 //	@Override

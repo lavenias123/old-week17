@@ -1,5 +1,6 @@
 package com.promineotech.jeep.dao;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import com.promineotech.jeep.entity.Color;
@@ -27,5 +28,7 @@ public interface JeepOrderDao {
 	Optional<Tire> fetchTire(String tire);
 
 	Optional<Jeep> fetchModel(JeepModel model, String trim, int doors);
+
+	Order saveOrder(Customer customer, Jeep jeep, Color color, Engine engine, Tire tire, BigDecimal price);
 
 }
