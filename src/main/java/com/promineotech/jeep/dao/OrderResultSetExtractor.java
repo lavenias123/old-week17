@@ -12,6 +12,12 @@ import com.promineotech.jeep.entity.JeepModel;
 import com.promineotech.jeep.entity.Order;
 
 public class OrderResultSetExtractor implements ResultSetExtractor<Order>  {
+
+	@Override
+	public Order extractData(ResultSet rs) throws SQLException, DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 //	public Order extractData(ResultSet rs) 
 //			throws SQLException, DataAccessException {
 //		rs.next();

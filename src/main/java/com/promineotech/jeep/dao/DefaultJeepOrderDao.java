@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,8 @@ import com.promineotech.jeep.entity.Customer;
 import com.promineotech.jeep.entity.Engine;
 import com.promineotech.jeep.entity.Jeep;
 import com.promineotech.jeep.entity.JeepModel;
+import com.promineotech.jeep.entity.Option;
+import com.promineotech.jeep.entity.OptionType;
 import com.promineotech.jeep.entity.Order;
 import com.promineotech.jeep.entity.OrderRequest;
 import com.promineotech.jeep.entity.Tire;
@@ -30,6 +35,12 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 // Error: So I selected from choice of corrections to: 
 // which I believe was added on lines 70 - 74 unimplemented method for DefaultJeepOrderDao
 	
+	@Override
+	public Optional<Order> createOrder(OrderRequest orderRequest) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+	
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	// this in JODao.java
@@ -38,6 +49,51 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 	public Order saveOrder(Customer customer, Jeep jeep, Color color, Engine engine, Tire tire, BigDecimal price) {
 		return null;
 	}
+	
+	@Override
+	public List<Option> fetchOptions(List<String> optionIds) {
+		
+		if(optionIds.isEmpty()) {
+			return new LinkedList<>();
+		}
+		
+		
+		Map<String, Object> params = new HashMap<>();
+		
+		// @formatter: off
+		String sql = ""
+				+ "SELECT * "
+				+ "FROM options "
+				+ "WHERE option_id IN(";
+		// @formatter: on
+		
+		for(int index = 0; index < optionIds.size(); index++) {
+			String key = "option_" + index;
+			sql += ":" + key + ",";
+			params.put(key, optionIds.get(index));
+		}
+		
+		sql = sql.substring(0, sql.length() - 2);
+		sql += ")";
+		
+		return jdbcTemplate.query(sql, params, new RowMapper<Option>() {
+
+			@Override
+			public Option mapRow(ResultSet rs, int rowNum) throws SQLException {
+				// formatter: off
+				return Option.builder()
+						.category(OptionType.valueOf(rs.getString("category")))
+						.manufacturer(rs.getString("manufacturer"))
+						.name(rs.getString("name"))
+						.optionId(rs.getString("option_id"))
+						.optionPK(rs.getLong("option_pk"))
+						.price(rs.getBigDecimal("price"))
+						.build();
+				// formatter: on
+			}});
+	}
+	
+ 
 	/**
 	 * 
 	 */
@@ -56,19 +112,19 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 				jdbcTemplate.query(sql, params, new CustomerResultSetExtractor()));
 	}
 
-	@Override
-	public Optional<Order> createOrder(OrderRequest orderRequest) {
-		String sql= ""
-				+ "SELECT * "
-				+ "FROM orders "
-				+ "WHERE order_id = :order_id";
-		
-		Map<String, Object> params = new HashMap<>();
-		params.put("order_id", orderId);
-		
-//		return Optional.ofNullable(
-//				jdbcTemplate.query(sql, params, new OrderResultSetExtractor()));
-	}
+//	@Override
+//	public Optional<Order> createOrder(OrderRequest orderRequest) {
+//		String sql= ""
+//				+ "SELECT * "
+//				+ "FROM orders "
+//				+ "WHERE order_id = :order_id";
+//		
+//		Map<String, Object> params = new HashMap<>();
+//		params.put("order_id", orderId);
+//		
+////		return Optional.ofNullable(
+////				jdbcTemplate.query(sql, params, new OrderResultSetExtractor()));
+//	}
 //	
 // inner class
 	class CustomerResultSetExtractor implements ResultSetExtractor<Customer> {
@@ -164,6 +220,9 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 		// @formatter:on
 		
 	}
+
+	
+	
 
 	
 	

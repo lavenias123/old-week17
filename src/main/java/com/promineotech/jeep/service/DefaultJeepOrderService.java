@@ -48,8 +48,9 @@ public class DefaultJeepOrderService implements JeepOrderService {
 	}
 
 	private List<Option> getOption(OrderRequest orderRequest) {
-		// TODO Auto-generated method stub
-		return null;
+		return jeepOrderDao.fetchOptions(orderRequest.getOptions());
+		
+		
 	}
 
 	protected Tire getTire(OrderRequest orderRequest) {
