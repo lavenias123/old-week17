@@ -32,12 +32,9 @@ import lombok.extern.slf4j.Slf4j;
  
 @Component
 public class DefaultJeepOrderDao implements JeepOrderDao {
-// Error: So I selected from choice of corrections to: 
-// which I believe was added on lines 70 - 74 unimplemented method for DefaultJeepOrderDao
 	
 	@Override
 	public Optional<Order> createOrder(OrderRequest orderRequest) {
-		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
 	
@@ -69,7 +66,8 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 		
 		for(int index = 0; index < optionIds.size(); index++) {
 			String key = "option_" + index;
-			sql += ":" + key + ",";
+			sql += ":" + key + ", ";
+//			System.out.println("key=" + key + ", sql=" + sql);
 			params.put(key, optionIds.get(index));
 		}
 		
@@ -221,33 +219,6 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 		
 	}
 
-	
-	
-
-	
-	
-	
-//	@Override
-//	public Tire extractData(ResultSet rs) 
-//		throws SQLException, DataAccessException {
-//	rs.next();
-//	//formatter:off
-//	return Tire.builder()
-//			.tireId(rs.getString("tire_id"))
-//			.tirePK(rs.getLong("tire_pk"))
-//			.tireSize(rs.getString("tire_size"))
-//			.manufacturer(rs.getString("manufacturer"))
-//			.price(rs.getBigDecimal("price"))
-//			.warrantyMiles(rs.getInt("warranty_miles"))
-//			.build();	
-	//formatter:on
 }
-	/*  tire_pk int unsigned NOT NULL AUTO_INCREMENT,
-   tire_id varchar(30) NOT NULL, 
-   tire_size varchar(128) NOT NULL,
-   manufacturer varchar(70) NOT NULL,
-   price decimal(7, 2) NOT NULL,
-   warranty_miles int NOT NULL,
-   */
-
+	
 

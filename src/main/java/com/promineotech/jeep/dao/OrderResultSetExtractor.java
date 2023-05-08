@@ -15,9 +15,11 @@ public class OrderResultSetExtractor implements ResultSetExtractor<Order>  {
 
 	@Override
 	public Order extractData(ResultSet rs) throws SQLException, DataAccessException {
-		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	// ==============Order.builder() isn't required ==================
 //	public Order extractData(ResultSet rs) 
 //			throws SQLException, DataAccessException {
 //		rs.next();

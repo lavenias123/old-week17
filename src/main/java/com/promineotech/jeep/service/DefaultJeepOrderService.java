@@ -44,7 +44,6 @@ public class DefaultJeepOrderService implements JeepOrderService {
 		
 				
 		return jeepOrderDao.saveOrder(customer, jeep, color, engine, tire, price);
-//		return jeepOrderDao.createOrder(orderRequest);
 	}
 
 	private List<Option> getOption(OrderRequest orderRequest) {
