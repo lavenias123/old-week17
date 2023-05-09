@@ -42,8 +42,11 @@ public class DefaultJeepOrderService implements JeepOrderService {
 		
 		BigDecimal price = jeep.getBasePrice().add(color.getPrice()).add(engine.getPrice()).add(tire.getPrice());
 		
-				
-		return jeepOrderDao.saveOrder(customer, jeep, color, engine, tire, price);
+		for(Option option : options) {
+			price = price.add(option.getPrice());
+		}
+		
+		return jeepOrderDao.saveOrder(customer, jeep, color, engine, tire, price, options);
 	}
 
 	private List<Option> getOption(OrderRequest orderRequest) {

@@ -36,8 +36,11 @@ public interface JeepOrderDao {
 
 	Optional<Jeep> fetchModel(JeepModel model, String trim, int doors);
 
-	Order saveOrder(Customer customer, Jeep jeep, Color color, Engine engine, Tire tire, BigDecimal price);
+//	Order saveOrder(Customer customer, Jeep jeep, Color color, Engine engine, Tire tire, BigDecimal price);
 
 	List<Option> fetchOptions(List<String> optionIds);
+
+	Order saveOrder(Customer customer, Jeep jeep, Color color, Engine engine, Tire tire, BigDecimal price,
+			List<Option> options);
 
 }

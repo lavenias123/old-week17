@@ -32,6 +32,12 @@ import lombok.extern.slf4j.Slf4j;
  
 @Component
 public class DefaultJeepOrderDao implements JeepOrderDao {
+	// added below unimplemented method to remove red lines under DefaultJeepOrderDao
+	
+	@Override
+	public Order saveOrder(Customer customer, Jeep jeep, Color color, Engine engine, Tire tire, BigDecimal price, List<Option> options) {
+		return null;
+	}
 	
 	@Override
 	public Optional<Order> createOrder(OrderRequest orderRequest) {
@@ -42,10 +48,6 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	// this in JODao.java
 	
-	@Override
-	public Order saveOrder(Customer customer, Jeep jeep, Color color, Engine engine, Tire tire, BigDecimal price) {
-		return null;
-	}
 	
 	@Override
 	public List<Option> fetchOptions(List<String> optionIds) {
@@ -218,6 +220,7 @@ public class DefaultJeepOrderDao implements JeepOrderDao {
 		// @formatter:on
 		
 	}
+
 
 }
 	
