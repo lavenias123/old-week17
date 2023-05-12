@@ -46,6 +46,7 @@ import lombok.Data;
 	 @Length(max = 30)
 	 @Pattern(regexp = "[\\w\\s]*")
 	 private String tire;
-	 private List<@NotNull @Length(max = 30) 
+	 // rm @NotNull from List<@NotNull @Length
+	 private List<@Length(max = 30) 
 	  @Pattern(regexp = "[A-Z0-9_]*") String> options;
  }

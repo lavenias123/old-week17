@@ -32,6 +32,9 @@ import com.promineotech.jeep.entity.Order;
    config = @SqlConfig(encoding = "utf-8"))
 class CreateOrderTest extends CreateOrderTestSupport {
 
+	@Autowired
+	private JdbcTemplate jdbcTemplate; 
+	
 	/**
 	 * 
 	 */
@@ -41,6 +44,9 @@ class CreateOrderTest extends CreateOrderTestSupport {
 		//Given: an order as JSON 
 		String body =  createOrderBody();
 		String uri = getBaseUriForOrders();
+		
+		int numRowsOrders = JdbcTestUtils.countRowsInTable(jdbcTemplate, "orders");
+		int numRowsOptions = JdbcTestUtils.countRowsInTable(jdbcTemplate, "order_options");
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -62,8 +68,12 @@ class CreateOrderTest extends CreateOrderTestSupport {
 		assertThat(order.getModel().getModelId()).isEqualTo(JeepModel.WRANGLER);
 		assertThat(order.getModel().getTrimLevel()).isEqualTo("Sport Altitude");
 		assertThat(order.getModel().getNumDoors()).isEqualTo(4);
-		assertThat(order.getColor().getColorId()).isEqualTo("2_0_TURBO");
-		assertThat(order.getEngine().getEngineId()).isEqualTo("35_TOYO");
+		assertThat(order.getColor().getColorId()).isEqualTo("EXT_NACHO");
+		assertThat(order.getEngine().getEngineId()).isEqualTo("2_0_TURBO");
+		assertThat(order.getTire().getTireId()).isEqualTo("35_TOYO");
 		assertThat(order.getOptions()).hasSize(6);
+		
+		assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "orders")).isEqualTo(numRowsOrders + 1);
+		assertThat(JdbcTestUtils.countRowsInTable(jdbcTemplate, "order_options")).isEqualTo(numRowsOptions + 6);
 	}
 }

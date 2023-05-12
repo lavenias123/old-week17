@@ -1,4 +1,4 @@
-package com.promineotech.jeep.entity;
+ package com.promineotech.jeep.entity;
 
  import java.math.BigDecimal;
  import java.util.List;
